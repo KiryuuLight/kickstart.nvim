@@ -46,3 +46,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 -- vim: ts=2 sts=2 sw=2 et
+-- jq on exit
+vim.keymap.set('i', 'jk', '<Esc>', { desc = 'Escape using j and k' })
+-- Open parent directory for oil
+vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Open parent directory' })
