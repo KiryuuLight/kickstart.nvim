@@ -19,7 +19,7 @@ return {
         end,
       },
       { 'nvim-telescope/telescope-ui-select.nvim' },
-      { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
+      { 'nvim-tree/nvim-web-devicons',            enabled = vim.g.have_nerd_font },
     },
     config = function()
       local actions = require 'telescope.actions'
@@ -82,6 +82,23 @@ return {
           find_command = { 'rg', '--files', '--iglob', '.env*' },
         }
       end, { desc = 'Search environment variables' })
+
+      -- Shorcut to list obsidian notes from current day
+      local function find_daily_notes()
+        local vault_path = '~/vaults/'
+        local telescope = require('telescope.builtin')
+        local today = os.date('%Y-%m-%d')
+
+        telescope.find_files({
+          prompt_title = 'Daily Notes',
+          cwd = vault_path,
+          search_file = today
+        })
+      end
+
+
+      vim.keymap.set('n', '<leader>ft', find_daily_notes,
+        { desc = 'Search notes from today', noremap = true, silent = true })
     end,
   },
 }
