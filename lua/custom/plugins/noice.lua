@@ -10,6 +10,16 @@ return {
   config = function()
     local noice = require 'noice'
     noice.setup {
+      notify = {
+        enabled = true,
+        level = 'ERROR',
+      },
+      routes = {
+        {
+          filter = { find = 'written' },
+          opts = { skip = true },
+        },
+      },
       lsp = {
         -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
         override = {
