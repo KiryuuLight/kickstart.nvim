@@ -36,7 +36,11 @@ return {
           operators = {},
         },
         color_overrides = {},
-        custom_highlights = {},
+        custom_highlights = function(colors)
+          return {
+            DiagnosticUnnecessary = { fg = colors.pink },
+          }
+        end,
         default_integrations = true,
         integrations = {
           cmp = true,
