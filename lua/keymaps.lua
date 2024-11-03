@@ -67,3 +67,15 @@ vim.keymap.set('n', '<leader>ol', '<cmd>ObsidianLinks<CR>', { desc = 'Show Obsid
 vim.keymap.set('n', '<leader>on', '<cmd>ObsidianNew<CR>', { desc = 'Create New Note' })
 vim.keymap.set('n', '<leader>os', '<cmd>ObsidianSearch<CR>', { desc = 'Search Obsidian' })
 vim.keymap.set('n', '<leader>oq', '<cmd>ObsidianQuickSwitch<CR>', { desc = 'Quick Switch' })
+
+-- Buffers
+
+local function delete_buffer()
+  local current_buffers = vim.api.nvim_list_bufs()
+  print(vim.inspect(current_buffers))
+  local bd = require('bufdelete')
+  bd.bufdelete(0, false)
+end
+
+vim.keymap.set('n', '<leader>bd', delete_buffer, { desc = 'Delete current buffer' })
+vim.keymap.set('n', '<leader>ba', '<cmd>%bd | e# <CR>', { desc = 'Delete all buffers , open the last one' })
