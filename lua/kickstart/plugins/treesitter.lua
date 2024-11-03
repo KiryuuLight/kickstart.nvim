@@ -2,36 +2,46 @@ return {
   {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
+    dependencies = {
+      "windwp/nvim-ts-autotag",
+    },
     main = 'nvim-treesitter.configs',
+    config = function()
+      local treesitter = require("nvim-treesitter.configs")
+
+      require('nvim-ts-autotag').setup({
+        enable = true,
+        filetypes = { "html", "xml", "tsx", "typescript" },
+      })
+      -- configure treesitter
+      treesitter.setup({ -- enable syntax highlighting
+        ensure_installed = {
+          'bash',
+          'c',
+          'diff',
+          'lua',
+          'luadoc',
+          'markdown',
+          'markdown_inline',
+          'query',
+          'vim',
+          'vimdoc',
+          'html',
+          'typescript',
+          'javascript',
+          'tsx',
+        },
+        autotag = {
+          enable = false,
+        },
+        highlight = {
+          enable = true,
+          additional_vim_regex_highlighting = { 'ruby' },
+        },
+        indent = { enable = true, disable = { 'ruby' } },
+      })
+    end,
     opts = {
-      ensure_installed = {
-        'bash',
-        'c',
-        'diff',
-        'html',
-        'lua',
-        'luadoc',
-        'markdown',
-        'markdown_inline',
-        'query',
-        'vim',
-        'vimdoc',
-        'typescript',
-        'javascript',
-        'tsx',
-      },
-      autotag = {
-        enable = true,
-      },
-      auto_install = true,
-      highlight = {
-        enable = true,
-        -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
-        --  If you are experiencing weird indenting issues, add the language to
-        --  the list of additional_vim_regex_highlighting and disabled languages for indent.
-        additional_vim_regex_highlighting = { 'ruby' },
-      },
-      indent = { enable = true, disable = { 'ruby' } },
     },
     -- There are additional nvim-treesitter modules that you can use to interact
     -- with nvim-treesitter. You should go explore a few and see what interests you:
